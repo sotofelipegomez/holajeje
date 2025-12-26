@@ -34,7 +34,7 @@
         .buttons {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 20px;
         }
 
         button {
@@ -44,7 +44,7 @@
             border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
-            transition: background 0.3s;
+            transition: transform 0.1s ease;
         }
 
         #btnSi {
@@ -55,12 +55,11 @@
         #btnNo {
             background-color: #6c757d;
             color: white;
-            position: absolute; /* Importante para que pueda moverse por toda la pantalla */
-            transition: all 0.1s ease; /* Movimiento fluido */
+            position: relative; /* Cambia a absoluto automáticamente en el primer clic */
             z-index: 100;
         }
 
-        /* Modal / Ventana de mensaje */
+        /* Ventana de mensaje final */
         #mensaje-final {
             display: none;
             position: fixed;
@@ -90,7 +89,7 @@
         <h1>¿Es verdad que te amo más? ❤️</h1>
         <div class="buttons">
             <button id="btnSi" onclick="victoria()">Sí</button>
-            <button id="btnNo">No</button>
+            <button id="btnNo" onclick="moverBoton()">No</button>
         </div>
     </div>
 
@@ -105,22 +104,32 @@
         const btnNo = document.getElementById('btnNo');
         let intentosNo = 0;
 
-        // Función para mover el botón NO
-        btnNo.addEventListener('mouseover', function() {
+        function moverBoton() {
             intentosNo++;
 
             if (intentosNo >= 10) {
                 alert("¡No mientas! 😡");
-                intentosNo = 0; // Reinicia el contador para que pueda seguir jugando
+                // Opcional: podrías hacer que el botón "No" desaparezca aquí 
+                // para que solo le quede el "Sí".
             }
 
-            // Calculamos posiciones aleatorias dentro de la ventana
-            const x = Math.random() * (window.innerWidth - btnNo.clientWidth);
-            const y = Math.random() * (window.innerHeight - btnNo.clientHeight);
+            // Cambiamos a posición absoluta para que salte por toda la pantalla
+            btnNo.style.position = 'absolute';
+
+            // Calculamos posición aleatoria
+            // Usamos un margen de 50px para que no se pegue a los bordes
+            const x = Math.random() * (window.innerWidth - btnNo.clientWidth - 50);
+            const y = Math.random() * (window.innerHeight - btnNo.clientHeight - 50);
             
             btnNo.style.left = x + 'px';
             btnNo.style.top = y + 'px';
-        });
+            
+            // Efecto visual de rebote pequeño al aparecer
+            btnNo.style.transform = "scale(1.1)";
+            setTimeout(() => {
+                btnNo.style.transform = "scale(1)";
+            }, 100);
+        }
 
         function victoria() {
             document.getElementById('overlay').style.display = 'block';
@@ -130,6 +139,11 @@
         function cerrar() {
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('mensaje-final').style.display = 'none';
+            // Resetear posición si quieres volver a jugar
+            btnNo.style.position = 'relative';
+            btnNo.style.left = 'auto';
+            btnNo.style.top = 'auto';
+            intentosNo = 0;
         }
     </script>
 </body>
