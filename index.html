@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi amor ❤️</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffe6e6;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            background-color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #btnSi {
+            background-color: #ff4d6d;
+            color: white;
+        }
+
+        #btnNo {
+            background-color: #6c757d;
+            color: white;
+            position: absolute;
+        }
+
+        /* Estilo para la ventana modal (el aviso) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.3);
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>¿Sabías que te amo más? ❤️</h1>
+        <div class="buttons">
+            <button id="btnSi">Sí</button>
+            <button id="btnNo">No</button>
+        </div>
+    </div>
+
+    <div id="miModal" class="modal">
+        <h2>¡Viste que sí! 🥰</h2>
+        <p>Sabía que estarías de acuerdo.</p>
+        <button onclick="cerrarModal()">❤️</button>
+    </div>
+
+    <script>
+        const btnSi = document.getElementById('btnSi');
+        const btnNo = document.getElementById('btnNo');
+        const modal = document.getElementById('miModal');
+
+        // Lógica para que el botón NO se escape
+        btnNo.addEventListener('mouseover', function() {
+            const x = Math.random() * (window.innerWidth - this.clientWidth);
+            const y = Math.random() * (window.innerHeight - this.clientHeight);
+            
+            this.style.left = x + 'px';
+            this.style.top = y + 'px';
+        });
+
+        // Lógica para el botón SÍ
+        btnSi.addEventListener('click', function() {
+            modal.style.display = 'block';
+        });
+
+        function cerrarModal() {
+            modal.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
